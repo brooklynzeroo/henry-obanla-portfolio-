@@ -1,269 +1,266 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  ArrowUpRight, 
-  Sparkles, 
   Terminal, 
-  Layers, 
   Cpu, 
+  Layers, 
   Command, 
+  GitBranch, 
+  Activity, 
+  ShieldCheck, 
+  Zap, 
+  ArrowUpRight, 
   Mail, 
   Github, 
-  ChevronRight
+  ExternalLink,
+  Code2,
+  Database,
+  Server,
+  Globe
 } from 'lucide-react';
 
 export default function App() {
-  const [scrolled, setScrolled] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
+  const [typedCommand, setTypedCommand] = useState('');
+  const [terminalOutput, setTerminalOutput] = useState('sys_init --secure --v2.4.0');
+  const [uptime, setUptime] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const timer = setInterval(() => setUptime(prev => prev + 1), 1000);
+    return () => clearInterval(timer);
   }, []);
 
-  const works = [
+  const executeCommand = (cmd) => {
+    setTypedCommand(cmd);
+    if (cmd === 'skills') {
+      setTerminalOutput('LOADED: React 19, Vite 6, Tailwind CSS, AWS Amplify, WebGL, Node.js, TypeScript');
+    } else if (cmd === 'clear') {
+      setTerminalOutput('Terminal buffer cleared.');
+    } else if (cmd === 'status') {
+      setTerminalOutput('All systems operational. Latency: 14ms. Core Temp: 36.2°C.');
+    } else if (cmd === 'contact') {
+      setTerminalOutput('EMAIL: henryobanladesign@gmail.com | PGP Verified.');
+    } else {
+      setTerminalOutput(`Command executed: "${cmd}". Type 'skills', 'status', or 'contact'.`);
+    }
+  };
+
+  const systemsWork = [
     {
-      num: '01',
-      title: 'Flower Bliss Couture',
-      category: 'E-Commerce Engineering',
-      desc: 'Bespoke headless architecture engineered for luxury retail. Features ultra-smooth micro-interactions, sub-second page transitions, and an optimized conversion pipeline.',
-      metrics: '99/100 Lighthouse • +42% AOV',
-      stack: ['React', 'Vite', 'Tailwind', 'Stripe API']
+      id: 'SYS-01',
+      title: 'Flower Bliss Couture Engine',
+      category: 'Headless E-Commerce Architecture',
+      spec: 'React • Vite • Tailwind • Stripe API • AWS Amplify',
+      metrics: '99/100 Lighthouse • 0.28s TTFB • +42% AOV',
+      desc: 'Bespoke high-speed storefront engineered for luxury retail. Features sub-second client-side route transitions, zero layout shift (CLS), and encrypted payment pipelines.',
+      codeSnippet: 'const store = createStore({ persistence: "redis", encryption: "AES-256" });'
     },
     {
-      num: '02',
-      title: 'Aethelgard Atelier',
-      category: 'Design System & UI',
-      desc: 'An immersive editorial digital publication platform for high-end fashion houses. Built with custom spatial typography and fluid kinetic scrolling layouts.',
-      metrics: 'Zero Layout Shift • 60 FPS Motion',
-      stack: ['React', 'Tailwind CSS', 'Custom WebGL']
+      id: 'SYS-02',
+      title: 'Aethelgard Publication Protocol',
+      category: 'Digital Editorial & Spatial UI',
+      spec: 'React • WebGL • Custom Motion • Tailwind',
+      metrics: '60 FPS Fixed • Zero Jank • 0.4s FCP',
+      desc: 'Immersive editorial publishing engine built for high-fashion digital media. Utilizes spatial typography scaling, kinetic asset preloading, and responsive grid matrices.',
+      codeSnippet: 'const grid = new SpatialLayout({ columns: 12, gutter: "2rem", fluid: true });'
     },
     {
-      num: '03',
-      title: 'Vanguard Protocol',
-      category: 'Fintech & Dashboard',
-      desc: 'High-security financial intelligence terminal featuring real-time data visualization, encrypted client portals, and minimalist light-mode aesthetics.',
-      metrics: '< 0.3s Latency • SOC2 Aligned UI',
-      stack: ['Vite', 'Node.js', 'Tailwind', 'Chart.js']
+      id: 'SYS-03',
+      title: 'Vanguard FinTech Terminal',
+      category: 'Encrypted Client Intelligence Dashboard',
+      spec: 'Vite • Node.js • Chart.js • SOC2 UI',
+      metrics: '< 15ms Socket Latency • Zero Leakage',
+      desc: 'High-security financial intelligence HUD with real-time websocket data feeds, multi-factor credential authentication wrappers, and dark-mode telemetry.',
+      codeSnippet: 'socket.on("telemetry_update", (packet) => renderMatrix(packet));'
     }
   ];
 
   return (
-    <div className="bg-[#faf9f6] text-[#1a1a1a] min-h-screen font-sans selection:bg-[#d97757] selection:text-white relative overflow-x-hidden">
+    <div className="bg-[#0b0c10] text-[#c5c6c7] min-h-screen font-mono selection:bg-[#66fcf1] selection:text-[#0b0c10] relative overflow-x-hidden">
       
-      {/* Floating Minimalist Header */}
-      <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${
-        scrolled ? 'bg-[#faf9f6]/90 backdrop-blur-xl border-[#e5e5df] py-4 shadow-sm' : 'bg-transparent border-transparent py-6'
-      }`}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group">
-            <span className="w-2 h-2 rounded-full bg-[#d97757] group-hover:scale-150 transition-transform duration-300"></span>
-            <span className="font-serif tracking-[0.2em] uppercase text-xs text-[#1a1a1a]">
-              Henry Obanla <span className="text-[#d97757]">/ Studio</span>
-            </span>
-          </a>
+      {/* Background Matrix Grid Overlay */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f283315_1px,transparent_1px),linear-gradient(to_bottom,#1f283315_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none"></div>
 
-          <nav className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-[0.25em] text-[#666666]">
-            <a href="#work" className="hover:text-[#d97757] transition-colors">Works</a>
-            <a href="#expertise" className="hover:text-[#d97757] transition-colors">Expertise</a>
-            <a href="#contact" className="hover:text-[#d97757] transition-colors">Contact</a>
-          </nav>
+      {/* Top HUD Status Bar */}
+      <header className="fixed top-0 left-0 w-full z-50 bg-[#0b0c10]/95 backdrop-blur-md border-b border-[#1f2833] px-6 py-3 flex flex-wrap items-center justify-between text-xs">
+        <div className="flex items-center gap-4">
+          <span className="flex items-center gap-2 text-[#66fcf1]">
+            <Activity className="w-4 h-4 animate-pulse" />
+            <span className="font-bold tracking-widest">HENRY_OBANLA://CORE</span>
+          </span>
+          <span className="hidden sm:inline-block text-[#45a29e]">|</span>
+          <span className="hidden sm:inline-block text-[#c5c6c7]/70 text-[11px]">ROLE: FRONTEND ARCHITECT & WEB DESIGNER</span>
+        </div>
 
+        <div className="flex items-center gap-6 text-[11px]">
+          <span className="hidden md:inline-block text-[#45a29e]">UPTIME: {uptime}s</span>
+          <span className="hidden md:inline-block text-[#45a29e]">SECURE: 256-bit SSL</span>
           <a 
             href="mailto:henryobanladesign@gmail.com"
-            className="px-4 py-2 text-[10px] uppercase tracking-[0.25em] border border-[#d97757] text-[#d97757] hover:bg-[#d97757] hover:text-white transition-all duration-300"
+            className="px-3 py-1 bg-[#45a29e]/10 border border-[#66fcf1]/40 text-[#66fcf1] hover:bg-[#66fcf1] hover:text-[#0b0c10] transition-all"
           >
-            Direct Inquiry
+            PING_DEV
           </a>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="min-h-screen pt-32 pb-20 px-6 md:px-12 max-w-7xl mx-auto flex flex-col justify-center relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      {/* Main Terminal Shell Container */}
+      <main className="max-w-7xl mx-auto pt-28 pb-20 px-6 md:px-12 relative z-10">
+        
+        {/* Hero Section / Geek Command Center */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-24">
           
-          <div className="lg:col-span-8 space-y-8">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 bg-[#f0eee6] border border-[#e5e5df] text-[#d97757] text-[10px] uppercase tracking-[0.3em]">
-              <Sparkles className="w-3 h-3" />
-              <span>Frontend Architect & UI Designer</span>
+          <div className="lg:col-span-7 space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1f2833]/60 border border-[#45a29e]/30 text-[#66fcf1] text-[11px]">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span>SYSTEM_READY // VERIFIED DEPLOYMENT</span>
             </div>
 
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-serif font-light leading-[1.05] tracking-tight text-[#1a1a1a]">
-              Engineering <br />
-              <span className="italic text-[#d97757] font-normal">Modern Digital Art.</span>
+            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight font-sans">
+              Architecting <span className="text-[#66fcf1]">High-Performance</span> Web Systems.
             </h1>
 
-            <p className="text-base sm:text-lg text-[#555555] font-light max-w-xl leading-relaxed">
-              Crafting high-speed, conversion-optimized web applications and minimalist digital experiences with refined architectural precision.
+            <p className="text-sm sm:text-base text-[#c5c6c7]/80 font-mono leading-relaxed max-w-2xl">
+              Executing clean React codebases, lightning-fast Vite builds, and bulletproof AWS cloud pipelines. Designed for maximum average order value (AOV), zero layout shift, and supreme UX telemetry.
             </p>
 
-            <div className="flex flex-wrap items-center gap-5 pt-4">
-              <a 
-                href="#work"
-                className="px-7 py-4 bg-[#1a1a1a] text-[#faf9f6] text-xs font-medium uppercase tracking-[0.25em] hover:bg-[#d97757] transition-all duration-300 flex items-center gap-3"
-              >
-                <span>Explore Works</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+            {/* Interactive Terminal Emulator Bar */}
+            <div className="bg-[#1f2833]/40 border border-[#45a29e]/40 p-4 rounded space-y-3">
+              <div className="flex items-center justify-between text-[11px] text-[#45a29e] border-b border-[#1f2833] pb-2">
+                <span>INTERACTIVE_SHELL v2.4</span>
+                <span>[bash]</span>
+              </div>
+              <div className="text-xs text-[#66fcf1] font-mono">
+                &gt; {terminalOutput}
+              </div>
+              <div className="flex flex-wrap gap-2 pt-2">
+                <button onClick={() => executeCommand('skills')} className="px-2.5 py-1 bg-[#0b0c10] border border-[#45a29e]/30 text-xs text-[#c5c6c7] hover:border-[#66fcf1] hover:text-[#66fcf1] transition-colors">
+                  $ run skills
+                </button>
+                <button onClick={() => executeCommand('status')} className="px-2.5 py-1 bg-[#0b0c10] border border-[#45a29e]/30 text-xs text-[#c5c6c7] hover:border-[#66fcf1] hover:text-[#66fcf1] transition-colors">
+                  $ check status
+                </button>
+                <button onClick={() => executeCommand('contact')} className="px-2.5 py-1 bg-[#0b0c10] border border-[#45a29e]/30 text-xs text-[#c5c6c7] hover:border-[#66fcf1] hover:text-[#66fcf1] transition-colors">
+                  $ cat contact.txt
+                </button>
+              </div>
+            </div>
+          </div>
 
+          {/* Live Telemetry / System Specs Panel */}
+          <div className="lg:col-span-5 bg-[#1f2833]/30 border border-[#45a29e]/30 p-6 space-y-6 relative">
+            <div className="absolute top-0 right-0 px-3 py-1 bg-[#45a29e]/10 text-[#66fcf1] text-[10px] border-l border-b border-[#45a29e]/30">
+              TELEMETRY_ACTIVE
+            </div>
+
+            <div className="flex items-center gap-3 text-white font-bold border-b border-[#1f2833] pb-4">
+              <Cpu className="w-5 h-5 text-[#66fcf1]" />
+              <span>ENGINEERING_STACK_SPECS</span>
+            </div>
+
+            <div className="space-y-4 text-xs">
+              <div className="flex justify-between items-center border-b border-[#1f2833]/60 pb-2">
+                <span className="text-[#45a29e]">Core Framework:</span>
+                <span className="text-white font-bold">React 19 / Vite 6</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-[#1f2833]/60 pb-2">
+                <span className="text-[#45a29e]">Styling Engine:</span>
+                <span className="text-white font-bold">Tailwind CSS (Utility)</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-[#1f2833]/60 pb-2">
+                <span className="text-[#45a29e]">Hosting Infrastructure:</span>
+                <span className="text-white font-bold">AWS Amplify (Global CDN)</span>
+              </div>
+              <div className="flex justify-between items-center border-b border-[#1f2833]/60 pb-2">
+                <span className="text-[#45a29e]">Lighthouse Performance:</span>
+                <span className="text-[#66fcf1] font-bold">99 / 100 Benchmark</span>
+              </div>
+              <div className="flex justify-between items-center pb-1">
+                <span className="text-[#45a29e]">Git CI/CD Pipeline:</span>
+                <span className="text-white font-bold">Automated GitHub Actions</span>
+              </div>
+            </div>
+
+            <div className="pt-2">
               <a 
                 href="https://github.com/brooklynzeroo" 
                 target="_blank" 
                 rel="noreferrer"
-                className="px-7 py-4 border border-[#cccccc] text-[#1a1a1a] text-xs uppercase tracking-[0.25em] hover:border-[#1a1a1a] transition-all duration-300 flex items-center gap-3"
+                className="w-full py-3 bg-[#45a29e]/20 border border-[#66fcf1]/40 text-[#66fcf1] hover:bg-[#66fcf1] hover:text-[#0b0c10] transition-all flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest"
               >
-                <Github className="w-4 h-4 text-[#1a1a1a]" />
-                <span>GitHub Repository</span>
+                <Github className="w-4 h-4" />
+                <span>Inspect GitHub Repositories</span>
               </a>
             </div>
           </div>
 
-          {/* Right Side Tech Data Box */}
-          <div className="lg:col-span-4 bg-[#f4f2ec] border border-[#e5e5df] p-8 relative">
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-[#d97757]"></div>
-            
-            <div className="flex items-center justify-between pb-6 border-b border-[#e5e5df] text-xs uppercase tracking-[0.2em] text-[#1a1a1a]">
-              <span>System Specs</span>
-              <Terminal className="w-4 h-4 text-[#d97757]" />
+        </section>
+
+        {/* Selected Systems / Works Section */}
+        <section id="works" className="space-y-10 mb-28">
+          <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-[#1f2833] pb-6 gap-4">
+            <div>
+              <span className="text-xs uppercase tracking-[0.3em] text-[#66fcf1]">PROD_DEPLOYMENTS</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold text-white font-sans mt-1">Engineered Workflows</h2>
             </div>
-
-            <div className="space-y-6 pt-6 text-xs">
-              <div>
-                <span className="text-[#777777] uppercase tracking-[0.15em] block mb-1">Primary Stack</span>
-                <p className="text-[#1a1a1a] font-mono tracking-wider">React • Vite • Tailwind • AWS</p>
-              </div>
-
-              <div>
-                <span className="text-[#777777] uppercase tracking-[0.15em] block mb-1">Performance Standard</span>
-                <p className="text-[#d97757] font-mono tracking-wider">99/100 Lighthouse Core Vitals</p>
-              </div>
-
-              <div>
-                <span className="text-[#777777] uppercase tracking-[0.15em] block mb-1">Current Base</span>
-                <p className="text-[#1a1a1a] font-mono tracking-wider">Global / Remote Studio</p>
-              </div>
-            </div>
-
-            <div className="mt-8 pt-4 border-t border-[#e5e5df] flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-[#777777]">
-              <span>Status: Available</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-            </div>
+            <p className="text-xs text-[#45a29e]">
+              [Showing 3 active production architectures]
+            </p>
           </div>
 
-        </div>
-      </section>
-
-      {/* Selected Works */}
-      <section id="work" className="py-28 px-6 md:px-12 max-w-7xl mx-auto border-t border-[#e5e5df]">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-          <div>
-            <span className="text-[10px] uppercase tracking-[0.3em] text-[#d97757]">Curated Archive</span>
-            <h2 className="text-4xl sm:text-6xl font-serif font-light text-[#1a1a1a] mt-2">Selected Works</h2>
-          </div>
-          <p className="text-xs text-[#666666] uppercase tracking-[0.2em] max-w-xs">
-            High-performance web applications built for scale and visual clarity.
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {works.map((work) => (
-            <div 
-              key={work.num}
-              className="group bg-[#f4f2ec]/50 hover:bg-[#f4f2ec] border border-[#e5e5df] hover:border-[#1a1a1a] transition-all duration-500 p-8 md:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
-            >
-              <div className="lg:col-span-2 text-2xl font-serif text-[#999999] group-hover:text-[#d97757] transition-colors">
-                {work.num}
-              </div>
-
-              <div className="lg:col-span-6 space-y-3">
-                <span className="text-[10px] uppercase tracking-[0.25em] text-[#d97757]">{work.category}</span>
-                <h3 className="text-3xl font-serif text-[#1a1a1a] group-hover:translate-x-2 transition-transform duration-300">
-                  {work.title}
-                </h3>
-                <p className="text-sm text-[#555555] font-light leading-relaxed">
-                  {work.desc}
-                </p>
-              </div>
-
-              <div className="lg:col-span-4 space-y-4 lg:border-l lg:border-[#e5e5df] lg:pl-8">
-                <div className="text-xs font-mono text-[#d97757]">
-                  {work.metrics}
+          <div className="grid grid-cols-1 gap-8">
+            {systemsWork.map((sys) => (
+              <div 
+                key={sys.id}
+                className="bg-[#1f2833]/30 border border-[#1f2833] hover:border-[#66fcf1]/60 transition-all duration-300 p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              >
+                <div className="lg:col-span-2 space-y-2">
+                  <span className="text-xs text-[#66fcf1] font-bold">{sys.id}</span>
+                  <p className="text-[11px] text-[#45a29e] uppercase tracking-wider">{sys.category}</p>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {work.stack.map((tech, idx) => (
-                    <span key={idx} className="text-[9px] uppercase tracking-[0.15em] px-2.5 py-1 bg-[#e9e6dc] text-[#444444]">
-                      {tech}
-                    </span>
-                  ))}
+
+                <div className="lg:col-span-6 space-y-3">
+                  <h3 className="text-2xl font-bold text-white font-sans">
+                    {sys.title}
+                  </h3>
+                  <p className="text-xs text-[#c5c6c7]/80 leading-relaxed font-mono">
+                    {sys.desc}
+                  </p>
+                  
+                  {/* Code snippet display */}
+                  <div className="p-3 bg-[#0b0c10] border border-[#1f2833] text-[11px] text-[#66fcf1] font-mono">
+                    <code>{sys.codeSnippet}</code>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-4 space-y-4 lg:border-l lg:border-[#1f2833] lg:pl-8">
+                  <div className="text-xs text-[#66fcf1] font-bold">
+                    {sys.metrics}
+                  </div>
+                  <div className="text-[11px] text-[#45a29e] font-mono">
+                    {sys.spec}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
 
-      {/* Expertise */}
-      <section id="expertise" className="py-28 bg-[#f4f2ec]/60 border-y border-[#e5e5df] px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <span className="text-[10px] uppercase tracking-[0.3em] text-[#d97757]">Capabilities</span>
-            <h2 className="text-4xl sm:text-6xl font-serif font-light text-[#1a1a1a] mt-2">Technical Mastery</h2>
+        {/* Deep Technical Matrix / Capabilities */}
+        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28">
+          <div className="p-8 bg-[#1f2833]/20 border border-[#1f2833] space-y-4">
+            <Code2 className="w-8 h-8 text-[#66fcf1]" />
+            <h3 className="text-lg font-bold text-white font-sans">Frontend Engineering</h3>
+            <p className="text-xs text-[#c5c6c7]/80 leading-relaxed">
+              Writing modular React components, custom hooks, and optimized state trees in Vite. Focused on eliminating layout thrashing and garbage collection overhead.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-8 border border-[#e5e5df] bg-[#faf9f6] space-y-4">
-              <Cpu className="w-6 h-6 text-[#d97757]" />
-              <h3 className="text-xl font-serif text-[#1a1a1a]">Frontend Architecture</h3>
-              <p className="text-xs text-[#555555] font-light leading-relaxed">
-                Component-driven development in React & Vite with bulletproof state management, modular hooks, and flawless responsive execution.
-              </p>
-            </div>
-
-            <div className="p-8 border border-[#e5e5df] bg-[#faf9f6] space-y-4">
-              <Layers className="w-6 h-6 text-[#d97757]" />
-              <h3 className="text-xl font-serif text-[#1a1a1a]">UI/UX Design Systems</h3>
-              <p className="text-xs text-[#555555] font-light leading-relaxed">
-                Minimalist typography, clean light-mode palettes, and bespoke design tokens calibrated for modern digital products.
-              </p>
-            </div>
-
-            <div className="p-8 border border-[#e5e5df] bg-[#faf9f6] space-y-4">
-              <Command className="w-6 h-6 text-[#d97757]" />
-              <h3 className="text-xl font-serif text-[#1a1a1a]">Cloud Deployment</h3>
-              <p className="text-xs text-[#555555] font-light leading-relaxed">
-                CI/CD pipeline automation via AWS Amplify and GitHub, ensuring continuous delivery with zero downtime and instant cache invalidation.
-              </p>
-            </div>
+          <div className="p-8 bg-[#1f2833]/20 border border-[#1f2833] space-y-4">
+            <Layers className="w-8 h-8 text-[#66fcf1]" />
+            <h3 className="text-lg font-bold text-white font-sans">UI/UX Systems Design</h3>
+            <p className="text-xs text-[#c5c6c7]/80 leading-relaxed">
+              Designing dark-mode telemetry layouts, high-contrast HUDs, and minimalist typography hierarchies that convert traffic into high-value clients.
+            </p>
           </div>
-        </div>
-      </section>
 
-      {/* Footer / Call to Action */}
-      <section id="contact" className="py-28 px-6 md:px-12 max-w-7xl mx-auto text-center relative">
-        <span className="text-[10px] uppercase tracking-[0.3em] text-[#d97757]">Initiate Collaboration</span>
-        
-        <h2 className="text-4xl sm:text-7xl font-serif font-light text-[#1a1a1a] mt-4 mb-10">
-          Let’s Build Something <br />
-          <span className="italic text-[#d97757]">Extraordinary.</span>
-        </h2>
-
-        <div className="inline-block p-1 border border-[#cccccc] mb-16">
-          <a 
-            href="mailto:henryobanladesign@gmail.com"
-            className="px-8 py-4 bg-[#1a1a1a] text-[#faf9f6] text-xs font-medium uppercase tracking-[0.25em] hover:bg-[#d97757] transition-all duration-300 block"
-          >
-            henryobanladesign@gmail.com
-          </a>
-        </div>
-
-        <div className="pt-12 border-t border-[#e5e5df] flex flex-col sm:flex-row items-center justify-between text-xs text-[#666666] gap-6">
-          <p>© {new Date().getFullYear()} Henry Obanla. All rights reserved.</p>
-          <div className="flex gap-8 uppercase tracking-[0.2em] text-[10px]">
-            <a href="https://github.com/brooklynzeroo" target="_blank" rel="noreferrer" className="hover:text-[#d97757] transition-colors">GitHub</a>
-            <a href="mailto:henryobanladesign@gmail.com" className="hover:text-[#d97757] transition-colors">Email</a>
-          </div>
-        </div>
-      </section>
-
-    </div>
-  );
-}
+          <div className="p-8 bg-[#1f2
