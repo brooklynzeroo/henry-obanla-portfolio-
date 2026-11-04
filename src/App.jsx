@@ -262,7 +262,7 @@ export default function App() {
             <a href="mailto:henryobanladesign@gmail.com" className="hover:text-[#d97757] transition-colors">Email</a>
           </div>
         </div>
-      </footer>
+      </section>
 
     </div>
   );
