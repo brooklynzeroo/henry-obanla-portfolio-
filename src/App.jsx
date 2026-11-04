@@ -1,25 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Terminal, 
-  Cpu, 
-  Layers, 
-  Command, 
-  GitBranch, 
-  Activity, 
-  ShieldCheck, 
-  Zap, 
-  ArrowUpRight, 
-  Mail, 
-  Github, 
-  ExternalLink,
-  Code2,
-  Database,
-  Server,
-  Globe
-} from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('overview');
   const [typedCommand, setTypedCommand] = useState('');
   const [terminalOutput, setTerminalOutput] = useState('sys_init --secure --v2.4.0');
   const [uptime, setUptime] = useState(0);
@@ -33,8 +14,6 @@ export default function App() {
     setTypedCommand(cmd);
     if (cmd === 'skills') {
       setTerminalOutput('LOADED: React 19, Vite 6, Tailwind CSS, AWS Amplify, WebGL, Node.js, TypeScript');
-    } else if (cmd === 'clear') {
-      setTerminalOutput('Terminal buffer cleared.');
     } else if (cmd === 'status') {
       setTerminalOutput('All systems operational. Latency: 14ms. Core Temp: 36.2°C.');
     } else if (cmd === 'contact') {
@@ -84,7 +63,7 @@ export default function App() {
       <header className="fixed top-0 left-0 w-full z-50 bg-[#0b0c10]/95 backdrop-blur-md border-b border-[#1f2833] px-6 py-3 flex flex-wrap items-center justify-between text-xs">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-2 text-[#66fcf1]">
-            <Activity className="w-4 h-4 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#66fcf1] animate-pulse"></span>
             <span className="font-bold tracking-widest">HENRY_OBANLA://CORE</span>
           </span>
           <span className="hidden sm:inline-block text-[#45a29e]">|</span>
@@ -106,13 +85,12 @@ export default function App() {
       {/* Main Terminal Shell Container */}
       <main className="max-w-7xl mx-auto pt-28 pb-20 px-6 md:px-12 relative z-10">
         
-        {/* Hero Section / Geek Command Center */}
+        {/* Hero Section */}
         <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-24">
           
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#1f2833]/60 border border-[#45a29e]/30 text-[#66fcf1] text-[11px]">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>SYSTEM_READY // VERIFIED DEPLOYMENT</span>
+              <span>[✓] SYSTEM_READY // VERIFIED DEPLOYMENT</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight font-sans">
@@ -153,7 +131,6 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-3 text-white font-bold border-b border-[#1f2833] pb-4">
-              <Cpu className="w-5 h-5 text-[#66fcf1]" />
               <span>ENGINEERING_STACK_SPECS</span>
             </div>
 
@@ -187,7 +164,6 @@ export default function App() {
                 rel="noreferrer"
                 className="w-full py-3 bg-[#45a29e]/20 border border-[#66fcf1]/40 text-[#66fcf1] hover:bg-[#66fcf1] hover:text-[#0b0c10] transition-all flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest"
               >
-                <Github className="w-4 h-4" />
                 <span>Inspect GitHub Repositories</span>
               </a>
             </div>
@@ -226,7 +202,6 @@ export default function App() {
                     {sys.desc}
                   </p>
                   
-                  {/* Code snippet display */}
                   <div className="p-3 bg-[#0b0c10] border border-[#1f2833] text-[11px] text-[#66fcf1] font-mono">
                     <code>{sys.codeSnippet}</code>
                   </div>
@@ -245,22 +220,26 @@ export default function App() {
           </div>
         </section>
 
-        {/* Deep Technical Matrix / Capabilities */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-28">
-          <div className="p-8 bg-[#1f2833]/20 border border-[#1f2833] space-y-4">
-            <Code2 className="w-8 h-8 text-[#66fcf1]" />
-            <h3 className="text-lg font-bold text-white font-sans">Frontend Engineering</h3>
-            <p className="text-xs text-[#c5c6c7]/80 leading-relaxed">
-              Writing modular React components, custom hooks, and optimized state trees in Vite. Focused on eliminating layout thrashing and garbage collection overhead.
-            </p>
+        {/* Footer / Direct Secure Contact */}
+        <footer className="border-t border-[#1f2833] pt-16 pb-12 flex flex-col md:flex-row items-center justify-between gap-6 text-xs">
+          <div className="space-y-2 text-center md:text-left">
+            <p className="text-white font-bold">HENRY OBANLA // DIRECT TRANSMISSION</p>
+            <p className="text-[#45a29e]">henryobanladesign@gmail.com</p>
           </div>
 
-          <div className="p-8 bg-[#1f2833]/20 border border-[#1f2833] space-y-4">
-            <Layers className="w-8 h-8 text-[#66fcf1]" />
-            <h3 className="text-lg font-bold text-white font-sans">UI/UX Systems Design</h3>
-            <p className="text-xs text-[#c5c6c7]/80 leading-relaxed">
-              Designing dark-mode telemetry layouts, high-contrast HUDs, and minimalist typography hierarchies that convert traffic into high-value clients.
-            </p>
+          <div className="flex items-center gap-6">
+            <a href="https://github.com/brooklynzeroo" target="_blank" rel="noreferrer" className="text-[#c5c6c7] hover:text-[#66fcf1] transition-colors">
+              GITHUB
+            </a>
+            <a href="mailto:henryobanladesign@gmail.com" className="text-[#c5c6c7] hover:text-[#66fcf1] transition-colors">
+              EMAIL_SECURE
+            </a>
+            <span className="text-[#45a29e]">© {new Date().getFullYear()} ALL RIGHTS RESERVED</span>
           </div>
+        </footer>
 
-          <div className="p-8 bg-[#1f2
+      </main>
+
+    </div>
+  );
+}
